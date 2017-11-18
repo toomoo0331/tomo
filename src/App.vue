@@ -1,14 +1,34 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
+  <v-app>
+    <div id="app" >
+    <headerItem></headerItem>
     <router-view/>
-  </div>
+    <Footer></Footer>
+    </div>
+  </v-app>
 </template>
 
 <script>
-export default {
-  name: 'app'
-}
+  import headerItem from './components/top-item'
+  import Footer from './components/footer'
+
+  export default {
+    name: 'app',
+    components: {
+      headerItem,
+      Footer
+    },
+    created () {
+      this.$apollo.watchQuery({
+        /* options */
+      }).then(data => {
+        console.log(data)
+      })
+        .catch(e => {
+          this.errors.push(e)
+        })
+    }
+  }
 </script>
 
 <style>
@@ -18,6 +38,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  padding-top: 0;
+  width: 100%;
 }
+  headerItem{
+    height:10%;
+  }
 </style>
